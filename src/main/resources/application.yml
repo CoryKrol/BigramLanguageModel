@@ -1,6 +1,8 @@
 spring:
   application:
     name: bigram
+  main:
+    web-application-type: NONE
 
 logging:
   level:

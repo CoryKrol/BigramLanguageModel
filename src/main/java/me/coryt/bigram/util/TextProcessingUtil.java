@@ -9,6 +9,24 @@ import java.util.List;
 @UtilityClass
 public class TextProcessingUtil {
 	
+	public List<List<String>> tokenizeCorpus(String corpus) {
+		return splitSentences(splitCorpus(removeNonWordCharacters(corpus.toLowerCase())));
+	}
+	
+	/**
+	 * Replace all non-letter/non-whitespace characters and remove any spurious whitespace around them
+	 *
+	 * @param corpus input text corpus string
+	 * @return processed corpus string
+	 */
+	public String removeNonWordCharacters(String corpus) {
+		return corpus
+				.replaceAll(
+						ApplicationConstants.NON_WORD_CHARACTERS_REGEX,
+						ApplicationConstants.EMPTY_STRING)
+				.trim();
+	}
+	
 	/**
 	 * Split corpus on new lines
 	 *
@@ -29,16 +47,6 @@ public class TextProcessingUtil {
 		List<List<String>> sentenceList = new ArrayList<>();
 		corpus.forEach(str -> sentenceList.add(Arrays.asList(str.split(ApplicationConstants.WHITESPACE_REGEX))));
 		return sentenceList;
-	}
-	
-	/**
-	 * Replace all non-letter/non-whitespace characters and remove any spurious whitespace around them
-	 *
-	 * @param corpus input text corpus string
-	 * @return processed corpus string
-	 */
-	public String removeNonWordCharacters(String corpus) {
-		return corpus.replaceAll(ApplicationConstants.NON_WORD_CHARACTERS_REGEX, ApplicationConstants.EMPTY_STRING).trim();
 	}
 	
 }
