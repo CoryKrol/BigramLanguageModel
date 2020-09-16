@@ -9,6 +9,9 @@ public class ApplicationConstants {
 			"upon this the captain started , and eagerly desired to know more ."
 	};
 	
+	public final String START_OF_SENTENCE_WORD = "<s>";
+	public final String END_OF_SENTENCE_WORD = "</s>";
+	
 	
 	// Regexes
 	public final String NEWLINE_REGEX = "\\n";
@@ -18,4 +21,8 @@ public class ApplicationConstants {
 	public final String EMPTY_STRING = "";
 	
 	public final String CLASSPATH_STRING = "classpath:";
+	
+	public final String TEST_CORPUS = "[ moby dick by herman melville 1851 ]\n" +
+			"etymology .\n" +
+			"( supplied by a late consumptive usher to a grammar school )";
 }

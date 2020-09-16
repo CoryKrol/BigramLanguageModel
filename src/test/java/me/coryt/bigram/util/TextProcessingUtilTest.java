@@ -9,9 +9,7 @@ import static me.coryt.bigram.util.TextProcessingUtil.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TextProcessingUtilTest {
-	private static final String TEST_CORPUS = "[ moby dick by herman melville 1851 ]\n" +
-			"etymology .\n" +
-			"( supplied by a late consumptive usher to a grammar school )";
+	
 	private static final int TEST_CORPUS_NUM_SENTENCES = 3;
 	
 	private static final int TEST_SENTENCE_ONE_NUMBER_OF_TOKENS = 8;
@@ -23,7 +21,7 @@ class TextProcessingUtilTest {
 	@DisplayName("Should run full tokenization pipeline on 3 sentences and convert to lowercase")
 	@Test
 	void testTokenizeCorpus() {
-		List<List<String>> result = tokenizeCorpus(TEST_CORPUS);
+		List<List<String>> result = tokenizeCorpus(ApplicationConstants.TEST_CORPUS);
 		assertEquals(
 				TEST_CORPUS_NUM_SENTENCES,
 				result.size());
@@ -33,7 +31,7 @@ class TextProcessingUtilTest {
 	@DisplayName("Should remove non-character & non-white space leaving 16 tokens")
 	@Test
 	void testRemoveNonWordCharacters() {
-		String result = removeNonWordCharacters(TEST_CORPUS);
+		String result = removeNonWordCharacters(ApplicationConstants.TEST_CORPUS);
 		assertEquals(
 				TEST_SENTENCE_CLEAN_NUM_TOKENS,
 				result.split(ApplicationConstants.WHITESPACE_REGEX).length);
@@ -42,7 +40,7 @@ class TextProcessingUtilTest {
 	@DisplayName("Should split test corpus into ArrayList of size 3 containing token array lists")
 	@Test
 	void testTokenizeWords() {
-		List<List<String>> result = splitSentences(splitCorpus(TEST_CORPUS));
+		List<List<String>> result = splitSentences(splitCorpus(ApplicationConstants.TEST_CORPUS));
 		assertEquals(
 				TEST_SENTENCE_ONE_NUMBER_OF_TOKENS,
 				result.get(0).size());
