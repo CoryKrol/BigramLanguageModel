@@ -1,3 +1,8 @@
 spring:
   application:
     name: bigram
+
+logging:
+  level:
+    root: INFO
+    me.coryt.bigram: DEBUG
