@@ -16,7 +16,7 @@ public class TextProcessingUtil {
 	 * @return list of sentences
 	 */
 	public List<String> splitCorpus(String corpus) {
-		return Arrays.asList(corpus.split("\\n"));
+		return Arrays.asList(corpus.split(ApplicationConstants.NEWLINE_REGEX));
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class TextProcessingUtil {
 	 */
 	public List<List<String>> splitSentences(List<String> corpus) {
 		List<List<String>> sentenceList = new ArrayList<>();
-		corpus.forEach(str -> sentenceList.add(Arrays.asList(str.split("\\s"))));
+		corpus.forEach(str -> sentenceList.add(Arrays.asList(str.split(ApplicationConstants.WHITESPACE_REGEX))));
 		return sentenceList;
 	}
 	
@@ -38,7 +38,7 @@ public class TextProcessingUtil {
 	 * @return processed corpus string
 	 */
 	public String removeNonWordCharacters(String corpus) {
-		return corpus.replaceAll("\\h*([^a-zA-z\\s]|\\[|])+\\h*", "").trim();
+		return corpus.replaceAll(ApplicationConstants.NON_WORD_CHARACTERS_REGEX, ApplicationConstants.EMPTY_STRING).trim();
 	}
 	
 }

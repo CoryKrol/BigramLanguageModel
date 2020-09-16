@@ -24,7 +24,7 @@ public class ResourceReader {
 	
 	public String readFileToString(String path) {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
-		Resource resource = resourceLoader.getResource("classpath:" + path);
+		Resource resource = resourceLoader.getResource(ApplicationConstants.CLASSPATH_STRING + path);
 		return asString(resource);
 	}
 	
