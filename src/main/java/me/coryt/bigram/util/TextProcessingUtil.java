@@ -45,7 +45,11 @@ public class TextProcessingUtil {
 	 */
 	public List<List<String>> splitSentences(List<String> corpus) {
 		List<List<String>> sentenceList = new ArrayList<>();
-		corpus.forEach(str -> sentenceList.add(Arrays.asList(str.split(ApplicationConstants.WHITESPACE_REGEX))));
+		corpus.forEach(str -> {
+			List<String> tmpList = new ArrayList<>(Arrays.asList(str.split(ApplicationConstants.WHITESPACE_REGEX)));
+			tmpList.removeAll(Arrays.asList("", null));
+			sentenceList.add(tmpList);
+		});
 		return sentenceList;
 	}
 	

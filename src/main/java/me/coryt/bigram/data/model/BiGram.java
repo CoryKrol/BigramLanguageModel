@@ -1,14 +1,16 @@
 package me.coryt.bigram.data.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import me.coryt.bigram.util.ApplicationConstants;
 
 @Data
+@RequiredArgsConstructor
 public class BiGram {
 	private final String firstValue;
 	private final String secondValue;
-	private int count;
-	private double probability;
+	private int count = 0;
+	private double probability = 0.0;
 	
 	/**
 	 * A constructor used to create a start/end of sentence word
@@ -24,5 +26,9 @@ public class BiGram {
 			this.firstValue = value;
 			this.secondValue = ApplicationConstants.END_OF_SENTENCE_WORD;
 		}
+	}
+	
+	public String getKey() {
+		return firstValue + ", " + secondValue;
 	}
 }
