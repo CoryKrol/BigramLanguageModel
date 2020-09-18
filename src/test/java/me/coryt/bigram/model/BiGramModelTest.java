@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 class BiGramModelTest {
-	private static final String CORPUS_DUPLICATE_BIGRAMS = "I do not like green eggs and ham\nI do not like them Sam, I am.";
+	public static final String CORPUS_DUPLICATE_BIGRAMS = "I do not like green eggs and ham\nI do not like them Sam, I am.";
 	private static final String KEY_I_DO = "i, do";
 	private static final String KEY_DO_NOT = "do, not";
 	private static final String KEY_LIKE_GREEN = "like, green";
@@ -64,14 +64,14 @@ class BiGramModelTest {
 	@Test
 	void testInitializeMode_Case1() {
 		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(CORPUS_DUPLICATE_BIGRAMS);
-		biGramModel.initializeMode(testTokens);
+		biGramModel.initializeModel(testTokens);
 		Assertions.assertNotNull(biGramModel.getGrams());
 		Assertions.assertFalse(biGramModel.getGrams().isEmpty());
 	}
 	
 	@DisplayName("Should normalize bigram counts")
 	@Test
-	void testNormalizeCounts_Case1() {
+	void testNormalizeCounts() {
 		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(CORPUS_DUPLICATE_BIGRAMS);
 		Map<String, BiGram> result = biGramModel.normalizeCounts(biGramModel.processTokens(testTokens), 18);
 		Assertions.assertNotNull(result);

@@ -17,7 +17,7 @@ public class BiGramModel {
 	@Getter
 	private int totalBiGrams = 0;
 	
-	public void initializeMode(List<List<String>> tokenizedSentences) {
+	public void initializeModel(List<List<String>> tokenizedSentences) {
 		this.grams = normalizeCounts(processTokens(tokenizedSentences), totalBiGrams);
 	}
 	
@@ -67,5 +67,9 @@ public class BiGramModel {
 			resultList.add(new BiGram(tokens.get(0), false));
 		}
 		return resultList;
+	}
+	
+	public BiGram getGram(String key) {
+		return this.grams.get(key);
 	}
 }

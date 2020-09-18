@@ -1,16 +1,14 @@
 package me.coryt.bigram.model.data;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.EqualsAndHashCode;
 import me.coryt.bigram.util.ApplicationConstants;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@RequiredArgsConstructor
-public class BiGram {
-	private final String firstValue;
+public class BiGram extends UniGram {
 	private final String secondValue;
-	private int count = 0;
-	private double normalizedCount = 0.0;
+	
 	
 	/**
 	 * A constructor used to create a start/end of sentence word
@@ -19,24 +17,25 @@ public class BiGram {
 	 * @param firstValue true if the value is the first word in the sentence
 	 */
 	public BiGram(String value, boolean firstValue) {
+		super();
 		if (firstValue) {
-			this.firstValue = ApplicationConstants.START_OF_SENTENCE_WORD;
+			this.setValue(ApplicationConstants.START_OF_SENTENCE_WORD);
 			this.secondValue = value;
 		} else {
-			this.firstValue = value;
+			this.setValue(value);
 			this.secondValue = ApplicationConstants.END_OF_SENTENCE_WORD;
 		}
 	}
 	
+	public BiGram(String firstValue, String secondValue) {
+		super();
+		this.setValue(firstValue);
+		this.secondValue = secondValue;
+	}
+	
+	@Override
 	public String getKey() {
-		return firstValue + ", " + secondValue;
+		return this.getValue() + ", " + secondValue;
 	}
 	
-	public void incrementCount() {
-		this.count++;
-	}
-	
-	public void setNormalizedCount(int totalBiGrams) {
-		this.normalizedCount = (double) count / (double) totalBiGrams;
-	}
 }
