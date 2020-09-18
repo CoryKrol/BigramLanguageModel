@@ -1,6 +1,6 @@
 package me.coryt.bigram.model.test;
 
-import me.coryt.bigram.model.data.BiGram;
+import me.coryt.bigram.model.data.UniGram;
 import me.coryt.bigram.util.TextProcessingUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class InputLanguageTest {
 	
 	@Test
 	void testProcessSentence() {
-		List<BiGram> result = inputLanguage.processSentence(testCorpus.get(0));
+		List<UniGram> result = inputLanguage.processSentence(testCorpus.get(0));
 		Assertions.assertEquals(11, result.size());
 	}
 }

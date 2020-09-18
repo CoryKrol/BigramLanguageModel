@@ -16,7 +16,9 @@ public class ApplicationConstants {
 	// Regexes
 	public final String NEWLINE_REGEX = "\\n";
 	public final String WHITESPACE_REGEX = "\\s+";
-	public final String NON_WORD_CHARACTERS_REGEX = "([^a-zA-z\\s]|\\[|])+";
+	//([^a-zA-z\s]|\[|])+
+	// _____________
+	public final String NON_WORD_CHARACTERS_REGEX = "([^a-zA-z\\s]|\\[|]|\\_)+";
 	
 	public final String EMPTY_STRING = "";
 	

@@ -1,6 +1,7 @@
 package me.coryt.bigram.model;
 
 import me.coryt.bigram.model.data.UniGram;
+import me.coryt.bigram.util.ResourceReader;
 import me.coryt.bigram.util.TextProcessingUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,13 +65,38 @@ class UniGramModelTest {
 		Assertions.assertEquals(3, result.get(0).get(0).getCount());
 	}
 	
+	@DisplayName("*****TRAINING DATA***** Should process training data into unigrams")
+	@Test
+	void testProcessTokens_Case3() throws Exception {
+		List<List<UniGram>> result = uniGramModel
+				.processTokens(TextProcessingUtil
+						.tokenizeCorpus(ResourceReader
+								.readFileToString("train.txt")));
+		
+		Assertions.assertEquals(218382, uniGramModel.getTotalGrams());
+		Assertions.assertEquals(16950, uniGramModel.getGrams().size());
+		Assertions.assertSame(uniGramModel.getGram("all"), result.get(4).get(16));
+		Assertions.assertEquals(1526, result.get(4).get(16).getCount());
+	}
+	
 	@DisplayName("Should normalize unigram counts")
 	@Test
-	void testNormalizeCounts() {
-		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
+	void testNormalizeCounts_Case1() {
+		uniGramModel.processTokens(tokens);
 		Map<String, UniGram> result = uniGramModel.normalizeCounts(uniGramModel.getGrams(), 16);
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(0.1875, result.get("i").getNormalizedCount());
 		Assertions.assertEquals(0.0625, result.get("green").getNormalizedCount());
+	}
+	
+	@DisplayName("*****TRAINING DATA***** Should normalize unigram counts for training data")
+	@Test
+	void testNormalizeCounts_Case2() {
+		tokens = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
+		uniGramModel.processTokens(tokens);
+		Map<String, UniGram> result = uniGramModel.normalizeCounts(uniGramModel.getGrams(), 218382);
+		Assertions.assertNotNull(result);
+		Assertions.assertEquals(1.3737395939225761E-5, result.get("i").getNormalizedCount());
+		Assertions.assertEquals(4.57913197974192E-6, result.get("green").getNormalizedCount());
 	}
 }
