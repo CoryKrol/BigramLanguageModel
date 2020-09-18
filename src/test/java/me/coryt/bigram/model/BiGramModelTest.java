@@ -61,6 +61,21 @@ class BiGramModelTest {
 		Assertions.assertEquals(18, biGramModel.getTotalBiGrams());
 	}
 	
+	@DisplayName("*****TRAINING DATA******: Should process training data into bigrams")
+	@Test
+	void testProcessTokens_Case3() {
+		List<List<String>> testTokens = TextProcessingUtil
+				.tokenizeCorpus(
+						ResourceReader.readFileToString("train.txt"));
+		Map<String, BiGram> result = biGramModel.processTokens(testTokens);
+		Assertions.assertEquals(114300, result.size());
+		Assertions.assertEquals(39, result.get(KEY_DO_NOT).getCount());
+		Assertions.assertEquals(228413, biGramModel.getTotalBiGrams());
+		
+		result = biGramModel.normalizeCounts(result, 228413);
+		Assertions.assertEquals(1.7074334648203035E-4, result.get(KEY_DO_NOT).getNormalizedCount(), 0.05);
+	}
+	
 	@DisplayName("Should process List with duplicate bigrams and store in map field")
 	@Test
 	void testInitializeMode_Case1() {

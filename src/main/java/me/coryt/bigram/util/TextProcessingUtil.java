@@ -5,12 +5,13 @@ import lombok.experimental.UtilityClass;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class TextProcessingUtil {
 	
 	public List<List<String>> tokenizeCorpus(String corpus) {
-		return splitSentences(splitCorpus(removeNonWordCharacters(corpus.toLowerCase())));
+		return splitSentences(splitCorpus(removeNonWordCharacters(corpus.toLowerCase()))).stream().filter(list -> !list.isEmpty()).collect(Collectors.toList());
 	}
 	
 	/**

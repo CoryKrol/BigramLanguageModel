@@ -94,7 +94,7 @@ public class BiGramModel {
 					resultList.add(new BiGram(tokens.get(i - 1), tokens.get(i)));
 				}
 			}
-		} else {
+		} else if (tokens.size() == 1) {
 			resultList.add(new BiGram(tokens.get(0), true));
 			resultList.add(new BiGram(tokens.get(0), false));
 		}
