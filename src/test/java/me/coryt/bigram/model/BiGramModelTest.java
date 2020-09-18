@@ -2,6 +2,7 @@ package me.coryt.bigram.model;
 
 import me.coryt.bigram.model.data.BiGram;
 import me.coryt.bigram.util.ApplicationConstants;
+import me.coryt.bigram.util.ResourceReader;
 import me.coryt.bigram.util.TextProcessingUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,4 +79,30 @@ class BiGramModelTest {
 		Assertions.assertEquals(0.1111111111111111, result.get(KEY_I_DO).getNormalizedCount());
 		Assertions.assertEquals(0.05555555555555555, result.get(KEY_LIKE_GREEN).getNormalizedCount());
 	}
+	
+	@DisplayName("Should process List of tokenized sentences with grams linked by sentence ")
+	@Test
+	void testProcessTestData_Case1() {
+		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus("I do not like green eggs and ham I do not like them Sam, I am.\nI do not like green eggs and ham I do not like them Sam, I am.");
+		List<List<BiGram>> result = biGramModel.processTestData(testTokens);
+		
+		Assertions.assertNotSame(result.get(0).get(0), result.get(1).get(0));
+		Assertions.assertEquals(1, result.get(0).get(0).getCount());
+		
+		Assertions.assertSame(result.get(1).get(2), result.get(1).get(10));
+		Assertions.assertEquals(2, result.get(1).get(2).getCount());
+	}
+	
+	@DisplayName("******ON TESTING DATA****** Should process List of tokenized sentences with grams linked by sentence")
+	@Test
+	void testProcessTestData_Case2() {
+		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(ResourceReader.readFileToString("test.txt"));
+		List<List<BiGram>> result = biGramModel.processTestData(testTokens);
+		
+		Assertions.assertEquals(2, result.size());
+		Assertions.assertEquals(11, result.get(0).size());
+		Assertions.assertEquals(0.09090909090909091, result.get(0).get(0).getNormalizedCount(), 0.05);
+		Assertions.assertEquals(0.08333333333333333, result.get(1).get(0).getNormalizedCount(), 0.05);
+	}
+	
 }

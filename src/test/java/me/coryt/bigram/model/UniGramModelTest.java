@@ -62,27 +62,12 @@ class UniGramModelTest {
 		Assertions.assertEquals(11, uniGramModel.getGrams().size());
 		Assertions.assertSame(uniGramModel.getGram("i"), result.get(0).get(0));
 		Assertions.assertEquals(3, result.get(0).get(0).getCount());
-		
-		// TODO: Use for writing code to process testing data, only use distinct bigrams within sentences
-//		Assertions.assertNotSame(result.get(0).get(0), result.get(1).get(0));
-//		Assertions.assertEquals(1, result.get(0).get(0).getCount());
-//
-//		Assertions.assertSame(result.get(1).get(0), result.get(1).get(6));
-//		Assertions.assertEquals(2, result.get(1).get(0).getCount());
-// 		double resultNormSum = 0.0;
-//
-//		for (List<UniGram> sentence : resultList)
-//			for (UniGram uniGram : sentence)
-//				resultNormSum += uniGram.getNormalizedCount();
-//		Assertions.assertEquals(1.0, resultNormSum);
-	
 	}
 	
 	@DisplayName("Should normalize unigram counts")
 	@Test
 	void testNormalizeCounts() {
 		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
-		List<List<UniGram>> resultList = uniGramModel.processTokens(testTokens);
 		Map<String, UniGram> result = uniGramModel.normalizeCounts(uniGramModel.getGrams(), 16);
 		Assertions.assertNotNull(result);
 		Assertions.assertEquals(0.1875, result.get("i").getNormalizedCount());

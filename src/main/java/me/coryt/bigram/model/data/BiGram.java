@@ -7,6 +7,7 @@ import me.coryt.bigram.util.ApplicationConstants;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BiGram extends UniGram {
+	@EqualsAndHashCode.Include
 	private final String secondValue;
 	
 	
@@ -33,9 +34,9 @@ public class BiGram extends UniGram {
 		this.secondValue = secondValue;
 	}
 	
+	
 	@Override
 	public String getKey() {
-		return this.getValue() + ", " + secondValue;
+		return super.getKey() + ", " + secondValue;
 	}
-	
 }

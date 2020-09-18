@@ -50,6 +50,38 @@ public class BiGramModel {
 		return biGramMap;
 	}
 	
+	public List<List<BiGram>> processTestData(List<List<String>> tokenizedSentences) {
+		List<List<BiGram>> returnList = new ArrayList<>();
+		List<Map<String, BiGram>> newGramMapList = new ArrayList<>();
+		
+		for (int i = 0; i < tokenizedSentences.size(); i++) {
+			newGramMapList.add(new HashMap<>());
+		}
+		
+		tokenizedSentences.forEach(sentence -> {
+			List<BiGram> newBiGrams = toBiGram(sentence);
+			Map<String, BiGram> newGramMap = newGramMapList.get(returnList.size());
+			
+			for (int i = 0; i < newBiGrams.size(); i++) {
+				BiGram newBigram = newBiGrams.get(i);
+				String biGramKey = newBigram.getKey();
+				
+				if (newGramMap.containsKey(biGramKey)) {
+					BiGram foundBiGram = newGramMap.get(biGramKey);
+					foundBiGram.incrementCount();
+					newBiGrams.set(i, foundBiGram);
+				} else {
+					newBigram.incrementCount();
+					newGramMap.put(biGramKey, newBigram);
+				}
+			}
+			
+			newBiGrams.forEach(biGram -> biGram.setNormalizedCount(newBiGrams.size()));
+			returnList.add(newBiGrams);
+		});
+		return returnList;
+	}
+	
 	public List<BiGram> toBiGram(List<String> tokens) {
 		List<BiGram> resultList = new ArrayList<>();
 		if (tokens.size() > 1) {
