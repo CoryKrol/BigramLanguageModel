@@ -10,7 +10,7 @@ public class BiGram {
 	private final String firstValue;
 	private final String secondValue;
 	private int count = 0;
-	private double probability = 0.0;
+	private double normalizedCount = 0.0;
 	
 	/**
 	 * A constructor used to create a start/end of sentence word
@@ -30,5 +30,13 @@ public class BiGram {
 	
 	public String getKey() {
 		return firstValue + ", " + secondValue;
+	}
+	
+	public void incrementCount() {
+		this.count++;
+	}
+	
+	public void setNormalizedCount(int totalBiGrams) {
+		this.normalizedCount = (double) count / (double) totalBiGrams;
 	}
 }
