@@ -1,6 +1,6 @@
-package me.coryt.bigram.data.mapper;
+package me.coryt.bigram.model;
 
-import me.coryt.bigram.data.model.BiGram;
+import me.coryt.bigram.model.data.BiGram;
 import me.coryt.bigram.util.ApplicationConstants;
 import me.coryt.bigram.util.TextProcessingUtil;
 import org.junit.jupiter.api.Assertions;

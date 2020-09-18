@@ -1,4 +1,4 @@
-package me.coryt.bigram.data.model;
+package me.coryt.bigram.model.data;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

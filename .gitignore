@@ -147,5 +147,3 @@ buildNumber.properties
 .idea/sonarlint/
 .idea/vcs.xml
 Bigram Language Model.iml
-src/main/java/
-src/test/
