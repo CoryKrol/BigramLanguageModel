@@ -41,9 +41,26 @@ public class BiGram extends UniGram {
 		this.probability = biGramCount / uniGramCount;
 	}
 	
+	/**
+	 * Set probability for no-smoothing case
+	 *
+	 * @param biGramCount
+	 * @param uniGramCount
+	 */
 	public void setProbability(int biGramCount, int uniGramCount) {
 //		this.probability = Math.log(biGramCount / uniGramCount) / Math.log(Math.E);
 		this.probability = (double) biGramCount / (double) uniGramCount;
+	}
+	
+	/**
+	 * Set probability for Lapace smoothing case
+	 *
+	 * @param biGramCount
+	 * @param uniGramCount
+	 * @param vocabSize
+	 */
+	public void setProbability(int biGramCount, int uniGramCount, int vocabSize) {
+		this.probability = ((double) biGramCount + 1.0) / ((double) uniGramCount + (double) vocabSize);
 	}
 	
 	

@@ -3,6 +3,7 @@ package me.coryt.bigram.model;
 import lombok.RequiredArgsConstructor;
 import me.coryt.bigram.model.data.BiGram;
 import me.coryt.bigram.model.data.UniGram;
+import me.coryt.bigram.util.ApplicationConstants;
 import me.coryt.bigram.util.TextProcessingUtil;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +59,8 @@ public class ModelTrainer {
 	}
 	
 	public void printResults(List<List<BiGram>> testData) {
-		DecimalFormat decimalFormat = new DecimalFormat("0.####E0");
+		DecimalFormat sentenceProbFormatter = new DecimalFormat("0.####E0");
+		DecimalFormat biGramProbFormatter = new DecimalFormat("0.#####");
 		List<Double> trainedSentenceProbabilities = getTrainedSentenceProbabilities(testData);
 		
 		List<List<String>> outputTable = new ArrayList<>();
@@ -70,7 +72,7 @@ public class ModelTrainer {
 				if (j == 0) {
 					rowData.add(String.valueOf(i + 1));
 				} else if (j == 1) {
-					rowData.add("Sentence Prob: " + decimalFormat.format(trainedSentenceProbabilities.get(i)));
+					rowData.add("Sentence Prob: " + sentenceProbFormatter.format(trainedSentenceProbabilities.get(i)));
 				} else {
 					rowData.add("");
 				}
@@ -79,10 +81,16 @@ public class ModelTrainer {
 				
 				rowData.add(biGram.getKey());
 				rowData.add(String.valueOf(biGram.getCount()));
-				rowData.add(String.valueOf(biGram.getProbability()));
+				rowData.add(biGramProbFormatter.format(biGram.getProbability()));
 				
 				outputTable.add(rowData);
 			}
+		}
+		
+		if (ApplicationConstants.LAPLACE_SMOOTHING) {
+			System.out.println("Smoothing is enabled");
+		} else {
+			System.out.println("Smoothing is not enabled");
 		}
 		
 		for (List<String> row : outputTable) {

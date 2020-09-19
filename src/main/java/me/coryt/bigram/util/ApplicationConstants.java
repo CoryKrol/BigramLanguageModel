@@ -27,4 +27,6 @@ public class ApplicationConstants {
 	public final String TEST_CORPUS = "[ moby dick by herman melville 1851 ]\n" +
 			"etymology .\n" +
 			"( supplied by a late consumptive usher to a grammar school )";
+	
+	public boolean LAPLACE_SMOOTHING = true;
 }

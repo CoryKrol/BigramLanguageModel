@@ -3,6 +3,7 @@ package me.coryt.bigram.model;
 import lombok.Getter;
 import me.coryt.bigram.model.data.BiGram;
 import me.coryt.bigram.model.data.UniGram;
+import me.coryt.bigram.util.ApplicationConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -77,11 +78,16 @@ public class BiGramModel {
 		
 		setTestNormCount(returnList, newGramMap);
 		newGramMap.forEach((s, biGram) -> {
-			double normCount = biGram.getNormalizedCount();
-			double uniNormCount = testUniGramMap.get(biGram.getValue()).getNormalizedCount();
-			biGram.setProbability(
-					biGram.getCount(),
-					testUniGramMap.get(biGram.getValue()).getCount());
+			if (ApplicationConstants.LAPLACE_SMOOTHING) {
+				biGram.setProbability(
+						biGram.getCount(),
+						testUniGramMap.get(biGram.getValue()).getCount(),
+						testUniGramMap.size());
+			} else {
+				biGram.setProbability(
+						biGram.getCount(),
+						testUniGramMap.get(biGram.getValue()).getCount());
+			}
 		});
 		
 		return returnList;
@@ -123,9 +129,16 @@ public class BiGramModel {
 	public void setBiGramProbabilities(Map<String, UniGram> uniGramCounts) {
 		List<BiGram> biGrams = new ArrayList<>(grams.values());
 		for (BiGram biGram : biGrams) {
-			biGram.setProbability(
-					biGram.getCount(),
-					uniGramCounts.get(biGram.getValue()).getCount());
+			if (ApplicationConstants.LAPLACE_SMOOTHING) {
+				biGram.setProbability(
+						biGram.getCount(),
+						uniGramCounts.get(biGram.getValue()).getCount(),
+						uniGramCounts.size());
+			} else {
+				biGram.setProbability(
+						biGram.getCount(),
+						uniGramCounts.get(biGram.getValue()).getCount());
+			}
 		}
 	}
 }

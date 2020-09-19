@@ -32,6 +32,10 @@ public class BiGramApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) {
+		if (args.length != 2) {
+			log.error("Invalid number of arguments");
+		}
+		
 		log.info("EXECUTING: command line runner");
 //		modelTrainer.trainModel(args[0]);
 		modelTrainer.trainModel("/Users/coryt/IdeaProjects/Bigram Language Model/src/main/resources/train.txt");
@@ -41,5 +45,9 @@ public class BiGramApplication implements CommandLineRunner {
 
 //		List<Double> probabilities = modelTrainer.getSentenceProbabilities(testData);
 		
+	}
+	
+	public void displayHelp() {
+		log.info("Program accepts an absolute file path and a 0/1 to enable/disable Laplace smoothing");
 	}
 }
