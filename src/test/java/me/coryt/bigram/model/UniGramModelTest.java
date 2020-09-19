@@ -60,7 +60,7 @@ class UniGramModelTest {
 				.processTokens(tokens);
 		
 		Assertions.assertEquals(16, uniGramModel.getTotalGrams());
-		Assertions.assertEquals(11, uniGramModel.getGrams().size());
+		Assertions.assertEquals(12, uniGramModel.getGrams().size());
 		Assertions.assertSame(uniGramModel.getGram("i"), result.get(0).get(0));
 		Assertions.assertEquals(3, result.get(0).get(0).getCount());
 	}
@@ -74,7 +74,7 @@ class UniGramModelTest {
 								.readFileToString("train.txt")));
 		
 		Assertions.assertEquals(218382, uniGramModel.getTotalGrams());
-		Assertions.assertEquals(16950, uniGramModel.getGrams().size());
+		Assertions.assertEquals(16951, uniGramModel.getGrams().size());
 		Assertions.assertSame(uniGramModel.getGram("all"), result.get(4).get(16));
 		Assertions.assertEquals(1526, result.get(4).get(16).getCount());
 	}

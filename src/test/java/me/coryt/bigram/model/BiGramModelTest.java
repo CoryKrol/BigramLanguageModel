@@ -20,9 +20,12 @@ class BiGramModelTest {
 	List<List<String>> tokens;
 	BiGramModel biGramModel;
 	
+	UniGramModel uniGramModel = new UniGramModel();
+	
 	@BeforeEach
 	void setup() {
 		biGramModel = new BiGramModel();
+		uniGramModel = new UniGramModel();
 		tokens = TextProcessingUtil.tokenizeCorpus(ApplicationConstants.TEST_CORPUS);
 	}
 	
@@ -98,21 +101,22 @@ class BiGramModelTest {
 	@DisplayName("Should process List of tokenized sentences with grams linked by sentence ")
 	@Test
 	void testProcessTestData_Case1() {
-		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus("I do not like green eggs and ham I do not like them Sam, I am.\nI do not like green eggs and ham I do not like them Sam, I am.");
-		List<List<BiGram>> result = biGramModel.processTestData(testTokens);
 		
-		Assertions.assertNotSame(result.get(0).get(0), result.get(1).get(0));
-		Assertions.assertEquals(1, result.get(0).get(0).getCount());
+		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus("I do not like green eggs and ham I do not like them Sam, I am.\nI do not like green eggs and ham I do not like them Sam, I am.");
+		List<List<BiGram>> result = biGramModel.processTestData(testTokens, uniGramModel.getTestUniGram(testTokens));
+		
+		Assertions.assertSame(result.get(0).get(0), result.get(1).get(0));
+		Assertions.assertEquals(2, result.get(0).get(0).getCount());
 		
 		Assertions.assertSame(result.get(1).get(2), result.get(1).get(10));
-		Assertions.assertEquals(2, result.get(1).get(2).getCount());
+		Assertions.assertEquals(4, result.get(1).get(2).getCount());
 	}
 	
 	@DisplayName("******ON TESTING DATA****** Should process List of tokenized sentences with grams linked by sentence")
 	@Test
 	void testProcessTestData_Case2() {
 		List<List<String>> testTokens = TextProcessingUtil.tokenizeCorpus(ResourceReader.readFileToString("test.txt"));
-		List<List<BiGram>> result = biGramModel.processTestData(testTokens);
+		List<List<BiGram>> result = biGramModel.processTestData(testTokens, uniGramModel.getTestUniGram(testTokens));
 		
 		Assertions.assertEquals(2, result.size());
 		Assertions.assertEquals(11, result.get(0).size());

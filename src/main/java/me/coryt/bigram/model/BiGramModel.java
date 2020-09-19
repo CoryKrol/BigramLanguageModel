@@ -2,6 +2,7 @@ package me.coryt.bigram.model;
 
 import lombok.Getter;
 import me.coryt.bigram.model.data.BiGram;
+import me.coryt.bigram.model.data.UniGram;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -50,17 +51,12 @@ public class BiGramModel {
 		return biGramMap;
 	}
 	
-	public List<List<BiGram>> processTestData(List<List<String>> tokenizedSentences) {
+	public List<List<BiGram>> processTestData(List<List<String>> tokenizedSentences, Map<String, UniGram> testUniGramMap) {
 		List<List<BiGram>> returnList = new ArrayList<>();
-		List<Map<String, BiGram>> newGramMapList = new ArrayList<>();
-		
-		for (int i = 0; i < tokenizedSentences.size(); i++) {
-			newGramMapList.add(new HashMap<>());
-		}
+		Map<String, BiGram> newGramMap = new HashMap<>();
 		
 		tokenizedSentences.forEach(sentence -> {
 			List<BiGram> newBiGrams = toBiGram(sentence);
-			Map<String, BiGram> newGramMap = newGramMapList.get(returnList.size());
 			
 			for (int i = 0; i < newBiGrams.size(); i++) {
 				BiGram newBigram = newBiGrams.get(i);
@@ -76,10 +72,23 @@ public class BiGramModel {
 				}
 			}
 			
-			newBiGrams.forEach(biGram -> biGram.setNormalizedCount(newBiGrams.size()));
+			
 			returnList.add(newBiGrams);
 		});
+		
+		setTestNormCount(returnList, newGramMap);
+		newGramMap.values().forEach(biGram -> biGram.setProbability(biGram.getNormalizedCount(), testUniGramMap.get(biGram.getValue()).getNormalizedCount()));
 		return returnList;
+	}
+	
+	public void setTestNormCount(List<List<BiGram>> testData, Map<String, BiGram> biGramMap) {
+		int i = 0;
+		for (List<BiGram> sentence : testData) {
+			i += sentence.size();
+		}
+		
+		int finalI = i;
+		biGramMap.forEach((s, biGram) -> biGram.setNormalizedCount(finalI));
 	}
 	
 	public List<BiGram> toBiGram(List<String> tokens) {
@@ -103,5 +112,18 @@ public class BiGramModel {
 	
 	public BiGram getGram(String key) {
 		return this.grams.get(key);
+	}
+	
+	public void setBiGramProbabilities(Map<String, UniGram> uniGramCounts) {
+		List<BiGram> biGrams = new ArrayList<>(grams.values());
+		try {
+			for (BiGram biGram : biGrams) {
+				biGram.setProbability(
+						biGram.getNormalizedCount(),
+						uniGramCounts.get(biGram.getValue()).getNormalizedCount());
+			}
+		} catch (NullPointerException nullPointerException) {
+			System.out.println(nullPointerException.getMessage());
+		}
 	}
 }

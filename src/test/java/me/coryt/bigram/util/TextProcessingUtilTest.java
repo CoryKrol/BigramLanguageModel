@@ -58,7 +58,7 @@ class TextProcessingUtilTest {
 	
 	@DisplayName("*****TRAINING DATA***** should load training data into array size 10059")
 	@Test
-	void testSplitCorpus() throws Exception {
+	void testSplitCorpus() {
 		List<String> result =
 				splitCorpus(
 						ResourceReader
@@ -75,16 +75,23 @@ class TextProcessingUtilTest {
 						ResourceReader
 								.readFileToString("train.txt"));
 		assertEquals(
-				10059,
+				10031,
 				result.size());
 		
-		result.forEach(sentence -> {
-			sentence.forEach(token -> {
-				if (!token.matches(LOWERCASE_LETTER_WORD_REGEX)) {
-					System.out.println(token);
-				}
-				Assertions.assertTrue(token.matches(LOWERCASE_LETTER_WORD_REGEX));
-			});
-		});
+		result.forEach(sentence -> sentence.forEach(token -> {
+			if (!token.matches(LOWERCASE_LETTER_WORD_REGEX)) {
+				System.out.println(token);
+			}
+			Assertions.assertTrue(token.matches(LOWERCASE_LETTER_WORD_REGEX));
+		}));
+	}
+	
+	@Test
+	void testReadFromFile() {
+		String expected = ResourceReader.readFileToString("train.txt");
+		// TODO don't commit this
+		String result = TextProcessingUtil.readFromFile("/Users/coryt/IdeaProjects/Bigram Language Model/src/main/resources/train.txt");
+		
+		Assertions.assertEquals(expected, result);
 	}
 }

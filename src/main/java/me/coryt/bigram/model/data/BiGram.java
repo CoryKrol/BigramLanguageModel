@@ -10,6 +10,8 @@ public class BiGram extends UniGram {
 	@EqualsAndHashCode.Include
 	private final String secondValue;
 	
+	private double probability;
+	
 	
 	/**
 	 * A constructor used to create a start/end of sentence word
@@ -32,6 +34,10 @@ public class BiGram extends UniGram {
 		super();
 		this.setValue(firstValue);
 		this.secondValue = secondValue;
+	}
+	
+	public void setProbability(double biGramCount, double uniGramCount) {
+		this.probability = Math.log(biGramCount / uniGramCount) / Math.log(2);
 	}
 	
 	

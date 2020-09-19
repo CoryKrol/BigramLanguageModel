@@ -2,10 +2,15 @@ package me.coryt.bigram.util;
 
 import lombok.experimental.UtilityClass;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @UtilityClass
 public class TextProcessingUtil {
@@ -54,4 +59,15 @@ public class TextProcessingUtil {
 		return sentenceList;
 	}
 	
+	public String readFromFile(String filePath) {
+		StringBuilder contentBuilder = new StringBuilder();
+		
+		try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
+			stream.forEach(s -> contentBuilder.append(s).append("\n"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return contentBuilder.toString();
+	}
 }
