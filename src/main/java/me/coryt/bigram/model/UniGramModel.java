@@ -57,9 +57,13 @@ public class UniGramModel {
 	public Map<String, UniGram> getTestUniGram(List<List<String>> testData) {
 		Map<String, UniGram> uniGrams = new HashMap<>();
 		List<List<UniGram>> gramReturnList = new ArrayList<>();
-		UniGram start = new UniGram("<s>");
-		start.setCount(testData.size());
-		uniGrams.put(start.getKey(), start);
+		
+		List<List<String>> newTestData = testData;
+		newTestData.forEach(list -> {
+			list.add(0, "<s>");
+			list.add("</s>");
+		});
+		
 		
 		testData.forEach(sentence -> {
 			List<UniGram> newUniGrams = toUniGram(sentence);
@@ -80,13 +84,18 @@ public class UniGramModel {
 			gramReturnList.add(newUniGrams);
 		});
 		
+		newTestData.forEach(list -> {
+			list.remove(0);
+			list.remove(list.size() - 1);
+		});
+		
 		return uniGrams;
 	}
 	
-	public void processTestUni(List<List<UniGram>> gramList, Map<String, UniGram> uniGramMap) {
-		int totalUniGrams = gramList.size();
-		for (List<UniGram> sentence : gramList) {
-			totalUniGrams += sentence.size();
+	public void processTestUni(Map<String, UniGram> uniGramMap) {
+		int totalUniGrams = 0;
+		for (UniGram sentence : uniGramMap.values()) {
+			totalUniGrams += sentence.getCount();
 		}
 		
 		int finalTotalUniGrams = totalUniGrams;

@@ -33,7 +33,7 @@ class ModelTrainerTest {
 	}
 	
 	@Test
-	void predictSentences() {
+	void testPredictSentences() {
 		modelTrainer.trainModel("/Users/coryt/IdeaProjects/Bigram Language Model/src/main/resources/train.txt");
 		List<List<BiGram>> testData = modelTrainer.loadTestData(TextProcessingUtil.tokenizeCorpus(ResourceReader.readFileToString("test.txt")));
 		List<Double> predictions = modelTrainer.getTrainedSentenceProbabilities(testData);
@@ -41,8 +41,17 @@ class ModelTrainerTest {
 	}
 	
 	@Test
-	void testAddStartUniGram() {
-		modelTrainer.addStartUniGram(TextProcessingUtil.tokenizeCorpus(ResourceReader.readFileToString("train.txt")));
+	void testLoadData() {
+		List<List<String>> input = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
+		List<List<BiGram>> result = modelTrainer.loadTestData(input);
 		
+		Assertions.assertEquals("<s>, i", result.get(0).get(0).getKey());
+	}
+	
+	@Test
+	void testPrintResults() {
+		modelTrainer.trainModel("/Users/coryt/IdeaProjects/Bigram Language Model/src/main/resources/train.txt");
+		List<List<BiGram>> testData = modelTrainer.loadTestData(TextProcessingUtil.tokenizeCorpus(ResourceReader.readFileToString("test.txt")));
+		modelTrainer.printResults(testData);
 	}
 }

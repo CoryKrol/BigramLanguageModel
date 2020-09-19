@@ -55,7 +55,7 @@ public class BiGramModel {
 		List<List<BiGram>> returnList = new ArrayList<>();
 		Map<String, BiGram> newGramMap = new HashMap<>();
 		
-		tokenizedSentences.forEach(sentence -> {
+		for (List<String> sentence : tokenizedSentences) {
 			List<BiGram> newBiGrams = toBiGram(sentence);
 			
 			for (int i = 0; i < newBiGrams.size(); i++) {
@@ -72,12 +72,18 @@ public class BiGramModel {
 				}
 			}
 			
-			
 			returnList.add(newBiGrams);
-		});
+		}
 		
 		setTestNormCount(returnList, newGramMap);
-		newGramMap.values().forEach(biGram -> biGram.setProbability(biGram.getNormalizedCount(), testUniGramMap.get(biGram.getValue()).getNormalizedCount()));
+		newGramMap.forEach((s, biGram) -> {
+			double normCount = biGram.getNormalizedCount();
+			double uniNormCount = testUniGramMap.get(biGram.getValue()).getNormalizedCount();
+			biGram.setProbability(
+					biGram.getCount(),
+					testUniGramMap.get(biGram.getValue()).getCount());
+		});
+		
 		return returnList;
 	}
 	
@@ -116,14 +122,10 @@ public class BiGramModel {
 	
 	public void setBiGramProbabilities(Map<String, UniGram> uniGramCounts) {
 		List<BiGram> biGrams = new ArrayList<>(grams.values());
-		try {
-			for (BiGram biGram : biGrams) {
-				biGram.setProbability(
-						biGram.getNormalizedCount(),
-						uniGramCounts.get(biGram.getValue()).getNormalizedCount());
-			}
-		} catch (NullPointerException nullPointerException) {
-			System.out.println(nullPointerException.getMessage());
+		for (BiGram biGram : biGrams) {
+			biGram.setProbability(
+					biGram.getCount(),
+					uniGramCounts.get(biGram.getValue()).getCount());
 		}
 	}
 }

@@ -99,4 +99,21 @@ class UniGramModelTest {
 		Assertions.assertEquals(1.3737395939225761E-5, result.get("i").getNormalizedCount());
 		Assertions.assertEquals(4.57913197974192E-6, result.get("green").getNormalizedCount());
 	}
+	
+	@Test
+	void testProcessTestUni() {
+		tokens = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
+		Map<String, UniGram> uniGramMap = uniGramModel.getTestUniGram(tokens);
+		uniGramModel.processTestUni(uniGramMap);
+		Assertions.assertEquals(0.15, uniGramMap.get("i").getNormalizedCount());
+	}
+	
+	@Test
+	void testGetTestUniGram() {
+		tokens = TextProcessingUtil.tokenizeCorpus(BiGramModelTest.CORPUS_DUPLICATE_BIGRAMS);
+		Map<String, UniGram> result = uniGramModel.getTestUniGram(tokens);
+		
+		Assertions.assertEquals(3, result.get("i").getCount());
+		Assertions.assertEquals(2, result.get("<s>").getCount());
+	}
 }

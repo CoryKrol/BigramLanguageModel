@@ -37,7 +37,13 @@ public class BiGram extends UniGram {
 	}
 	
 	public void setProbability(double biGramCount, double uniGramCount) {
-		this.probability = Math.log(biGramCount / uniGramCount) / Math.log(2);
+//		this.probability = Math.log(biGramCount / uniGramCount) / Math.log(Math.E);
+		this.probability = biGramCount / uniGramCount;
+	}
+	
+	public void setProbability(int biGramCount, int uniGramCount) {
+//		this.probability = Math.log(biGramCount / uniGramCount) / Math.log(Math.E);
+		this.probability = (double) biGramCount / (double) uniGramCount;
 	}
 	
 	

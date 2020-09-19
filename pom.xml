@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Bi-gram Language Model</name>
-    <description>Bi-gram langauge model for UTD Course CS 6320 Natural Language Processing</description>
+    <description>Bi-gram language model for UTD Course CS 6320 Natural Language Processing</description>
 
     <properties>
         <java.version>14</java.version>
