@@ -1,0 +1,85 @@
+{csgrads1:~} bash run_program.sh /home/013/c/ct/ctk150230/train.txt 1
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::       (v1.5.22.RELEASE)
+
+2020-09-19 17:24:44.933  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : Starting BiGramApplication on csgrads1.utdallas.edu with PID 46264 (/home/013/c/ct/ctk150230/bigram-spring-boot.jar started by ctk150230 in /home/013/c/ct/ctk150230)
+2020-09-19 17:24:44.936  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : No active profile set, falling back to default profiles: default
+2020-09-19 17:24:46.010  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : MODEL TRAINED:
+2020-09-19 17:24:46.012  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : TEST DATA LOADED:
+2020-09-19 17:24:46.012  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : DISPLAY RESULTS:
+Smoothing is enabled
+                   Sentence #                         BiGram                  BiGram Count            BiGram Probability
+                             1                     <s>, thus                             1                          0.08
+     Sentence Prob: 3.0284E-41                 thus, because                             1                       0.08333
+                                                 because, no                             1                       0.08333
+                                                     no, man                             1                       0.08333
+                                                    man, can                             1                       0.08333
+                                                 can, follow                             1                       0.08333
+                                             follow, another                             1                       0.08333
+                                               another, into                             1                       0.08333
+                                                 into, these                             1                       0.08333
+                                                these, halls                             1                       0.08333
+                                                 halls, </s>                             1                       0.08333
+                             2                     <s>, upon                             1                          0.08
+     Sentence Prob: 2.7494E-41                    upon, this                             1                       0.08333
+                                                   this, the                             1                       0.08333
+                                                the, captain                             1                       0.08333
+                                            captain, started                             1                       0.08333
+                                                started, and                             1                       0.08333
+                                                and, eagerly                             1                       0.08333
+                                            eagerly, desired                             1                       0.08333
+                                                 desired, to                             1                       0.08333
+                                                    to, know                             1                       0.08333
+                                                  know, more                             1                       0.08333
+                                                  more, </s>                             1                       0.08333
+2020-09-19 17:24:46.024  INFO 46264 --- [           main] me.coryt.bigram.BiGramApplication        : Started BiGramApplication in 1.496 seconds (JVM running for 2.072)
+
+
+{csgrads1:~} bash run_program.sh /home/013/c/ct/ctk150230/train.txt 0
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::       (v1.5.22.RELEASE)
+
+2020-09-19 17:25:07.147  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : Starting BiGramApplication on csgrads1.utdallas.edu with PID 46313 (/home/013/c/ct/ctk150230/bigram-spring-boot.jar started by ctk150230 in /home/013/c/ct/ctk150230)
+2020-09-19 17:25:07.150  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : No active profile set, falling back to default profiles: default
+2020-09-19 17:25:08.197  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : MODEL TRAINED:
+2020-09-19 17:25:08.200  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : TEST DATA LOADED:
+2020-09-19 17:25:08.200  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : DISPLAY RESULTS:
+Smoothing is not enabled
+                   Sentence #                         BiGram                  BiGram Count            BiGram Probability
+                             1                     <s>, thus                             1                           0.5
+     Sentence Prob: 1.0792E-21                 thus, because                             1                             1
+                                                 because, no                             1                             1
+                                                     no, man                             1                             1
+                                                    man, can                             1                             1
+                                                 can, follow                             1                             1
+                                             follow, another                             1                             1
+                                               another, into                             1                             1
+                                                 into, these                             1                             1
+                                                these, halls                             1                             1
+                                                 halls, </s>                             1                             1
+                             2                     <s>, upon                             1                           0.5
+     Sentence Prob: 1.0186E-23                    upon, this                             1                             1
+                                                   this, the                             1                             1
+                                                the, captain                             1                             1
+                                            captain, started                             1                             1
+                                                started, and                             1                             1
+                                                and, eagerly                             1                             1
+                                            eagerly, desired                             1                             1
+                                                 desired, to                             1                             1
+                                                    to, know                             1                             1
+                                                  know, more                             1                             1
+                                                  more, </s>                             1                             1
+2020-09-19 17:25:08.211  INFO 46313 --- [           main] me.coryt.bigram.BiGramApplication        : Started BiGramApplication in 1.472 seconds (JVM running for 2.04)
+
